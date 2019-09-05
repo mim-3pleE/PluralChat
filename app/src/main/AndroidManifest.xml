@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.consultengineer.pluralchat">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.hardware.camera"
+                    android:required="false"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
+    <permission android:name="com.consultengineer.pluralchat.MESSAGE_USER"
+        android:label="@string/permission_message_user_label"
+        android:description="@string/permission_message_user_description"
+        android:protectionLevel="normal">
+    </permission>
+
+    <permission
+        android:name="com.consultengineer.pluralchat.READ_CHAT_CONTACTS"
+        android:label="@string/permission_read_contacts_label"
+        android:description="@string/permission_read_contacts_description"
+        android:protectionLevel="normal">
+    </permission>
+
+    <permission android:name="com.consultengineer.pluralchat.WRITE_CHAT_CONTACTS"
+        android:label="@string/permission_write_contacts_label"
+        android:description="@string/permission_write_contacts_description"
+        android:protectionLevel="normal">
+    </permission>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".messageList.MessageListActivity"></activity>
+        <activity android:name=".ChatListActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <receiver android:name=".messageList.UserStatusUpdateReceiver"
+            android:exported="true"
+            android:enabled="true"
+            android:permission="com.consultengineer.pluralchat.MESSAGE_USER">
+        </receiver>
+        <provider
+            android:authorities="com.consultengineer.pluralchat.messageList.ChatContactsProvider"
+            android:name=".messageList.ChatContactsProvider"
+            android:readPermission="com.consultengineer.READ_CHAT_CONTACTS"
+            android:writePermission="com.consultengineer.WRITE_CHAT_CONTACTS">
+        </provider>
+    </application>
+
+</manifest>
